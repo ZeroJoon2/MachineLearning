@@ -1,0 +1,659 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "gpuType": "T4",
+      "authorship_tag": "ABX9TyONVLS9hcVPnSYGTyZOmj6g",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    },
+    "accelerator": "GPU"
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/ZeroJoon2/MachineLearning/blob/main/2.%20%EC%8B%A0%EA%B2%BD%EB%A7%9D\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### and w1 * x1  + w2 * x2 = y\n",
+        "1 / 1 = 1  \n",
+        "0 / 0 = 0  \n",
+        "0 / 1 = 0  \n",
+        "1 / 0 = 0  "
+      ],
+      "metadata": {
+        "id": "toc0odg6LMwF"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def AND(x1, x2):\n",
+        "  w1, w2, theta = 0.5, 0.5, 0.7 # 가중치\n",
+        "  tmp = x1 * w1 + x2 * w2\n",
+        "  if tmp <= theta:\n",
+        "    return 0\n",
+        "  elif tmp > theta:\n",
+        "    return 1\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "jJd7YoAWLQ5R",
+        "outputId": "41896352-a7f2-4406-f7d7-4b5308d5e446"
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "1"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 2
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(f'''\n",
+        "0/0 : {AND(0,0)}\n",
+        "1/0 : {AND(1,0)}\n",
+        "0/1 : {AND(0,1)}\n",
+        "1/1 : {AND(1,1)}\n",
+        "''')"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "MFjKu02PMJhQ",
+        "outputId": "940e3884-d67c-4c54-8e56-807cd49d5d87"
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "0/0 : 0\n",
+            "1/0 : 0\n",
+            "0/1 : 0\n",
+            "1/1 : 1\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def OR(x1, x2):\n",
+        "  w1, w2, theta = 0.5, 0.5, 0.2 # 가중치\n",
+        "  tmp = x1 * w1 + x2 * w2\n",
+        "  if tmp <= theta:\n",
+        "    return 0\n",
+        "  elif tmp > theta:\n",
+        "\n",
+        "    return 1\n",
+        "\n",
+        "print(f'''\n",
+        "0/0 : {OR(0,0)}\n",
+        "1/0 : {OR(1,0)}\n",
+        "0/1 : {OR(0,1)}\n",
+        "1/1 : {OR(1,1)}\n",
+        "''')"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "b8fqF3gPL25J",
+        "outputId": "62406c88-48a0-41ce-9011-5cbc3085e25f"
+      },
+      "execution_count": 39,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "0/0 : 0\n",
+            "1/0 : 1\n",
+            "0/1 : 1\n",
+            "1/1 : 1\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "\n",
+        "def AND(x1, x2):\n",
+        "  x = np.array([x1, x2])\n",
+        "  w = np.array([0.5, 0.5])\n",
+        "  b = -0.7\n",
+        "\n",
+        "  tmp = np.sum(x*w) + b\n",
+        "\n",
+        "  if tmp <= 0:\n",
+        "    return 0\n",
+        "\n",
+        "  else:\n",
+        "    return 1"
+      ],
+      "metadata": {
+        "id": "d0NlrJj5MtCt"
+      },
+      "execution_count": 9,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def OR(x1, x2):\n",
+        "  x = np.array([x1, x2])\n",
+        "  w = np.array([-0.5, -0.5])\n",
+        "  b = -0.2\n",
+        "\n",
+        "  tmp = np.sum(x*w) + b\n",
+        "\n",
+        "  if tmp <= 0:\n",
+        "    return 0\n",
+        "\n",
+        "  else:\n",
+        "    return 1"
+      ],
+      "metadata": {
+        "id": "KfYsbt9LRRch"
+      },
+      "execution_count": 7,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(f'''\n",
+        "0/0 : {AND(0,0)}\n",
+        "1/0 : {AND(1,0)}\n",
+        "0/1 : {AND(0,1)}\n",
+        "1/1 : {AND(1,1)}\n",
+        "''')\n",
+        "\n",
+        "print(f'''\n",
+        "0/0 : {OR(0,0)}\n",
+        "1/0 : {OR(1,0)}\n",
+        "0/1 : {OR(0,1)}\n",
+        "1/1 : {OR(1,1)}\n",
+        "''')"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "TzsAMjxpRmMx",
+        "outputId": "c0c6f755-4352-4f86-dc13-f0b6b9e9f89f"
+      },
+      "execution_count": 64,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "0/0 : 0\n",
+            "1/0 : 0\n",
+            "0/1 : 0\n",
+            "1/1 : 1\n",
+            "\n",
+            "\n",
+            "0/0 : 0\n",
+            "1/0 : 0\n",
+            "0/1 : 0\n",
+            "1/1 : 0\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def NAND(x1, x2):\n",
+        "  x = np.array([x1, x2])\n",
+        "  w = np.array([-0.5, -0.5])\n",
+        "  b = 0.7\n",
+        "\n",
+        "  tmp = np.sum(x*w) + b\n",
+        "\n",
+        "  if tmp <= 0:\n",
+        "    return 0\n",
+        "\n",
+        "  else:\n",
+        "    return 1"
+      ],
+      "metadata": {
+        "id": "zE5j9mGWSr4z"
+      },
+      "execution_count": 4,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(f'''\n",
+        "0/0 : {NAND(0,0)}\n",
+        "1/0 : {NAND(1,0)}\n",
+        "0/1 : {NAND(0,1)}\n",
+        "1/1 : {NAND(1,1)}\n",
+        "''')"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "_88GmN7SSxhU",
+        "outputId": "481814ec-518d-49ce-9580-450c7189af81"
+      },
+      "execution_count": 66,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "0/0 : 1\n",
+            "1/0 : 1\n",
+            "0/1 : 1\n",
+            "1/1 : 0\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### 다중 퍼셉트론\n",
+        "- 퍼셉트론은 입력과 출력이 있는 알고리즘이다.\n",
+        "- 입력을 정해진 규칙에 따라 계산해서 출력한다.\n",
+        "- 퍼셉트론은 가중치와 편향(바이어스)를 이용해서 매개변수로 설정한다.\n",
+        "- 퍼센트론 하나로 AND, OR 같은 논리 게이트를 구성할 수 있다 (선형)\n",
+        "- XOR 같은 복합논리는 퍼셉트론을 연결해서 처리한다 (비선형)\n",
+        "- XOR 2단 퍼셉트론으로 구성할 수 있다.\n"
+      ],
+      "metadata": {
+        "id": "95kRs5AuUA_G"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def XOR(x1, x2):\n",
+        "  s1 = NAND(x1, x2)\n",
+        "  s2 = OR(x1, x2)\n",
+        "  y = AND(s1, s2)\n",
+        "  return y"
+      ],
+      "metadata": {
+        "id": "4Nqxf_-zUAty"
+      },
+      "execution_count": 1,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "print(f'''\n",
+        "0/0 : {XOR(0,0)}\n",
+        "1/0 : {XOR(1,0)}\n",
+        "0/1 : {XOR(0,1)}\n",
+        "1/1 : {XOR(1,1)}\n",
+        "''')"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "rUe0yrp1UJ4D",
+        "outputId": "c01d50b3-9722-49b2-ecd9-124b127b082a"
+      },
+      "execution_count": 10,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "0/0 : 0\n",
+            "1/0 : 0\n",
+            "0/1 : 0\n",
+            "1/1 : 0\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### MNIST 데이터셋으로 신경망 구성"
+      ],
+      "metadata": {
+        "id": "2piq3iRLaFVW"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from tensorflow.keras.datasets import mnist\n",
+        "(train_images, train_labels), (test_images, test_labels) = mnist.load_data()"
+      ],
+      "metadata": {
+        "id": "hewuyTZRaJ70"
+      },
+      "execution_count": 27,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "train_images.shape, test_images.shape"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "3vMdVfXNaXXZ",
+        "outputId": "a7e86093-757a-4396-f080-e190046d63da"
+      },
+      "execution_count": 18,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "((60000, 28, 28), (10000, 28, 28))"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 18
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "train_labels.shape, test_labels.shape"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "8MDTLF9sawE5",
+        "outputId": "4b2496fc-6fbd-4e62-adb7-9d1593d69af4"
+      },
+      "execution_count": 20,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "((60000,), (10000,))"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 20
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "train_labels[:5]"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "0Na-Sdjba4lx",
+        "outputId": "c60b2765-a5c3-47ce-cb02-205e5e1bfdef"
+      },
+      "execution_count": 21,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "array([5, 0, 4, 1, 9], dtype=uint8)"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 21
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from tensorflow import keras\n",
+        "from tensorflow.keras import layers\n",
+        "\n",
+        "model= keras.Sequential([\n",
+        "    layers.Dense(512, activation = 'relu')\n",
+        "    , layers.Dense(10, activation = 'softmax')\n",
+        "    ])\n",
+        "\n",
+        "model"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "7t4OGlLOa7Cx",
+        "outputId": "104b53b2-6467-49b2-91fe-8556990f4f2f"
+      },
+      "execution_count": 28,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "<Sequential name=sequential_2, built=False>"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 28
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model.compile(\n",
+        "    optimizer = 'rmsprop'\n",
+        "    , loss = 'sparse_categorical_crossentropy'\n",
+        "    , metrics = ['accuracy']\n",
+        ")"
+      ],
+      "metadata": {
+        "id": "rWZtPqeCcHw5"
+      },
+      "execution_count": 29,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "train_images = train_images.reshape((60000, 28 * 28))\n",
+        "train_images = train_images.astype('float32') / 255\n",
+        "test_images = test_images.reshape((10000, 28 * 28))\n",
+        "test_images = test_images.astype('float32') / 255\n",
+        "\n",
+        "model.fit(train_images\n",
+        "          , train_labels\n",
+        "          , epochs = 5\n",
+        "          , batch_size = 128)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "lma43pKVcQXh",
+        "outputId": "171289ee-1bf1-4f29-94d5-3afd0be01e72"
+      },
+      "execution_count": 30,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Epoch 1/5\n",
+            "\u001b[1m469/469\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m4s\u001b[0m 3ms/step - accuracy: 0.8751 - loss: 0.4414\n",
+            "Epoch 2/5\n",
+            "\u001b[1m469/469\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - accuracy: 0.9663 - loss: 0.1170\n",
+            "Epoch 3/5\n",
+            "\u001b[1m469/469\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - accuracy: 0.9787 - loss: 0.0729\n",
+            "Epoch 4/5\n",
+            "\u001b[1m469/469\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - accuracy: 0.9850 - loss: 0.0522\n",
+            "Epoch 5/5\n",
+            "\u001b[1m469/469\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m1s\u001b[0m 2ms/step - accuracy: 0.9890 - loss: 0.0364\n"
+          ]
+        },
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "<keras.src.callbacks.history.History at 0x7abe022428f0>"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 30
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "test_digit = test_images[0:10]\n",
+        "predictions = model.predict(test_digit)\n",
+        "predictions[0]"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "IS65IkPCgoFt",
+        "outputId": "63974d6f-78d1-42ec-fbd7-5c322a01f0f0"
+      },
+      "execution_count": 32,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\u001b[1m1/1\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m0s\u001b[0m 250ms/step\n"
+          ]
+        },
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "array([2.5680077e-08, 1.7176478e-09, 6.2733066e-06, 1.7833660e-04,\n",
+              "       1.6735039e-11, 1.3991099e-08, 2.7581297e-12, 9.9981511e-01,\n",
+              "       1.2156883e-08, 2.7191490e-07], dtype=float32)"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 32
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "predictions[0].argmax()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "oPYAQ69Qg2LL",
+        "outputId": "c96501c0-49bf-4103-e406-af878e2b4209"
+      },
+      "execution_count": 34,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "7"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 34
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "test_labels[0]"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Lw6yPBhZg5cb",
+        "outputId": "4373a993-9eaa-48c2-e705-762cb4d25e61"
+      },
+      "execution_count": 35,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "7"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 35
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "h_uVOPVmg-Hx"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
